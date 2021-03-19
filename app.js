@@ -21,25 +21,25 @@ const generateLanding = async () => {
     const res = await fetch(`https://www.breakingbadapi.com/api/quote/random`);
 
     const result = await res.json();
-    console.log(result);
+    // console.log(result);
 
     // Author of Quote
     const author = result[0].author;
     // Author with (-) before
     const newAuthor = author.padStart(author.length + 1, "-");
-    console.log(newAuthor);
+    // console.log(newAuthor);
     // Quote
     const quote = result[0].quote;
     //Quote with ("") before and after
     const newQuote = quote
       .padStart(quote.length + 1, '"')
       .padEnd(quote.length + 2, '"');
-    console.log(newQuote);
+    // console.log(newQuote);
 
     // Converts author to fit API, changes (' ') to (+)
     const [firstName, LastName] = author.split(" ");
     let character = [firstName, LastName].join("+");
-    console.log(character);
+    // console.log(character);
 
     // Calls the function to render quote and auhtor on page
     quoteOnPage(newAuthor, newQuote);
@@ -68,13 +68,13 @@ const generateLanding = async () => {
     );
     const result2 = await res2.json();
     const characterImg = result2[0].img;
-    console.log(result2);
+    // console.log(result2);
     // Calls funtion to render img on page
     renderImg(characterImg);
 
     //CATCH ERRORS
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 };
 
@@ -91,10 +91,81 @@ const renderImg = (url) => {
 // setInterval(generateLanding, 5000);
 generateLanding();
 
-const test = async () => {
-  const res = await fetch(`https://www.breakingbadapi.com/api/characters`);
-  const result = await res.json();
-  console.log(result);
+// Asyncronouse Function to Create Card
+const createCard = async () => {
+  try {
+    const character = inputCard.value;
+    //BB API TO GET CHARACTER OBJECT
+    const response = await fetch(
+      `https://www.breakingbadapi.com/api/characters?name=${character}`
+    );
+    const data = await response.json();
+    // SELECTIONG THE IMG URL FROM OBJECT
+    const charImg = data[0].img;
+    const charName = data[0].name;
+    const nickName = data[0].nickname;
+    const age = data[0].birthday;
+    const occupation = data[0].occupation;
+    const status = data[0].status;
+    console.log(data);
+    console.log(charName);
+    //Render card with img
+    renderCard(charImg, charName, nickName, age, occupation, status);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-test();
+const renderCard = (img, name, nick, age, occupation, status) => {
+  const card = document.createElement("div");
+  card.style.backgroundImage = `url(${img})`;
+
+  card.innerHTML = `
+  <div class="close">X</div>
+  <article class="card-info">
+  <h2>${name}</h2>
+  <ul>
+  <li><span>Nickname:</span> ${nick}</li>
+  <li><span>Born:</span> ${age}</li>
+  <li><span>Occupation:</span> ${occupation}</li>
+  <li><span>Status:</span> ${status}</li>
+  </ul>
+  </article>`;
+
+  cardContainer.appendChild(card);
+
+  card.classList.add("card");
+};
+
+const cardContainer = document.querySelector(".card-container");
+const cardBtn = document.querySelector(".card-btn");
+const inputCard = document.querySelector("#card-input");
+const close = document.querySelector(".close");
+
+cardBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  createCard();
+  inputCard.value = "";
+});
+
+// LOOP CHARACTERS TO DATALIST
+const dataList = document.getElementById("datalist");
+const datalistChars = async () => {
+  const response = await fetch(`https://www.breakingbadapi.com/api/characters`);
+  const data = await response.json();
+  data.forEach((obj) => {
+    const listItem = document.createElement("option");
+    listItem.value = obj.name;
+
+    dataList.appendChild(listItem);
+  });
+};
+datalistChars();
+
+cardContainer.addEventListener("click", (e) => {
+  const close = e.target;
+  if (close.classList[0] === "close") {
+    const card = close.parentElement;
+    card.remove();
+  }
+});

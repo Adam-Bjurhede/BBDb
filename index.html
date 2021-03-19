@@ -18,15 +18,21 @@
       <!-- Navigation -->
       <nav class="navigation">
         <ul>
-          <li><a href="#">Characters</a></li>
-          <li><a href="#">Quotes</a></li>
-          <li><a href="#">Images</a></li>
-          <li><a href="#">Other</a></li>
+          <li><a href="#quotes-heading">Quotes</a></li>
+          <li><a href="#characters">Characters</a></li>
         </ul>
       </nav>
       <!-- Hamburger icon -->
       <i class="fas fa-bars"></i>
     </header>
+    <section class="welcome">
+      <h2 class="heading heading-1"><span class="periodic"> Br</span>eaking</h2>
+      <h2 class="heading heading-2"><span class="periodic">Ba</span>d</h2>
+      <h2 class="heading heading-3">Database</h2>
+    </section>
+
+    <!-- QUOTE SECTION -->
+    <h2 id="quotes-heading">Your Favourite Quotes From Breaking Bad</h2>
     <section class="landing-wrap">
       <section class="landing"></section>
       <div class="quote-wrap">
@@ -34,6 +40,21 @@
         <h4 class="author"></h4>
         <button class="btn quote-btn">New Quote</button>
       </div>
+    </section>
+
+    <h2 id="characters">Find Out About Your Favourite Characters</h2>
+    <section>
+      <form id="form">
+        <input
+          list="datalist"
+          id="card-input"
+          type="text"
+          placeholder="Search By Name"
+        />
+        <datalist id="datalist"> </datalist>
+        <button class="btn card-btn">Get Character</button>
+      </form>
+      <section class="card-container"></section>
     </section>
     <script src="app.js"></script>
   </body>
