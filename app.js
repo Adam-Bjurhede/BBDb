@@ -1,20 +1,62 @@
-// SHOW/HIDE MOBILE NAV BAR
+// Navbar Elements
 
 const hamburger = document.querySelector(".fa-bars");
 const navigation = document.querySelector(".navigation");
 
-hamburger.addEventListener("click", () => {
-  navigation.classList.toggle("show");
-});
-
-const landing = document.querySelector(".landing");
+// Quote Elements
+const authorImg = document.querySelector(".author-img");
 const quote = document.querySelector(".quote");
 const author = document.querySelector(".author");
 const quoteBtn = document.querySelector(".quote-btn");
 
+// Character Card Elements
+
+const cardContainer = document.querySelector(".card-container");
+const cardBtn = document.querySelector(".card-btn");
+const inputCard = document.querySelector("#card-input");
+const close = document.querySelector(".close");
+//Search Field
+const dataList = document.getElementById("datalist");
+
+// Death Elements
+const deathInput = document.querySelector(".death-input");
+const deathBtn = document.querySelector(".death-btn");
+const deathContainer = document.querySelector(".death-container");
+
+// --- Functions---
+
+//  Show/Hide Mobile Menu
+hamburger.addEventListener("click", () => {
+  navigation.classList.toggle("show");
+});
+
+// ---EventListeners---
+
+//  Genereate quoute-btn Eventlistner
+
 quoteBtn.addEventListener("click", () => {
   generateLanding();
 });
+
+// Generete card-btn Evenlistner
+cardBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  createCard();
+  inputCard.value = "";
+});
+
+// Evenlistner to close card with X
+cardContainer.addEventListener("click", (e) => {
+  const close = e.target;
+  if (close.classList[0] === "close") {
+    const card = close.parentElement;
+    card.remove();
+  }
+});
+
+// --- Async/Await Functions ---
+
+//  Gets Random quote and fetches image for corresponding author of quote
 const generateLanding = async () => {
   try {
     //   Genereate quote
@@ -78,19 +120,6 @@ const generateLanding = async () => {
   }
 };
 
-//RENDER FUNCTIONS
-const quoteOnPage = (data1, data2) => {
-  author.innerText = data1;
-  quote.innerText = data2;
-};
-
-const renderImg = (url) => {
-  landing.style.backgroundImage = `url(${url})`;
-};
-
-// setInterval(generateLanding, 5000);
-generateLanding();
-
 // Asyncronouse Function to Create Card
 const createCard = async () => {
   try {
@@ -116,14 +145,47 @@ const createCard = async () => {
   }
 };
 
+// LOOP CHARACTERS TO DATALIST
+const datalistChars = async () => {
+  try {
+    const response = await fetch(
+      `https://www.breakingbadapi.com/api/characters`
+    );
+    const data = await response.json();
+    data.forEach((obj) => {
+      const listItem = document.createElement("option");
+      listItem.value = obj.name;
+
+      dataList.appendChild(listItem);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// ---RENDER FUNCTIONS ---
+
+// Renders Quote and Author to page
+const quoteOnPage = (data1, data2) => {
+  author.innerText = data1;
+  quote.innerText = data2;
+};
+
+// Renders Author img to page
+const renderImg = (url) => {
+  authorImg.style.backgroundImage = `url(${url})`;
+};
+
+// Render card to page
 const renderCard = (img, name, nick, age, occupation, status) => {
   const card = document.createElement("div");
+
   card.style.backgroundImage = `url(${img})`;
 
   card.innerHTML = `
   <div class="close">X</div>
   <article class="card-info">
-  <h2>${name}</h2>
+  <h3>${name}</h3>
   <ul>
   <li><span>Nickname:</span> ${nick}</li>
   <li><span>Born:</span> ${age}</li>
@@ -137,35 +199,14 @@ const renderCard = (img, name, nick, age, occupation, status) => {
   card.classList.add("card");
 };
 
-const cardContainer = document.querySelector(".card-container");
-const cardBtn = document.querySelector(".card-btn");
-const inputCard = document.querySelector("#card-input");
-const close = document.querySelector(".close");
+// click.addEventListener("click", () => {
+//   ul.classList.toggle("show-info");
+// });
 
-cardBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  createCard();
-  inputCard.value = "";
-});
+// --- Calling Functions ---
 
-// LOOP CHARACTERS TO DATALIST
-const dataList = document.getElementById("datalist");
-const datalistChars = async () => {
-  const response = await fetch(`https://www.breakingbadapi.com/api/characters`);
-  const data = await response.json();
-  data.forEach((obj) => {
-    const listItem = document.createElement("option");
-    listItem.value = obj.name;
+// Quotes
+generateLanding();
 
-    dataList.appendChild(listItem);
-  });
-};
+// Populate Searchfield wiht characters
 datalistChars();
-
-cardContainer.addEventListener("click", (e) => {
-  const close = e.target;
-  if (close.classList[0] === "close") {
-    const card = close.parentElement;
-    card.remove();
-  }
-});

@@ -12,40 +12,50 @@
     <title>Breaking-Bad-Data-Base</title>
   </head>
   <body>
-    <!-- Header  With navigation and landing-->
     <header class="header">
+      <!-- LOGO -->
       <a href="#" class="logo">BBDb</a>
+
       <!-- Navigation -->
       <nav class="navigation">
         <ul>
           <li><a href="#quotes-heading">Quotes</a></li>
           <li><a href="#characters">Characters</a></li>
+          <li><a href="#deaths">Deaths</a></li>
         </ul>
       </nav>
+
       <!-- Hamburger icon -->
       <i class="fas fa-bars"></i>
     </header>
-    <section class="welcome">
-      <h2 class="heading heading-1"><span class="periodic"> Br</span>eaking</h2>
-      <h2 class="heading heading-2"><span class="periodic">Ba</span>d</h2>
-      <h2 class="heading heading-3">Database</h2>
+
+    <!-- Landing section with BBD LOGO Animationb -->
+    <section class="landing">
+      <h1 class="heading heading-1"><span class="periodic"> Br</span>eaking</h1>
+      <h1 class="heading heading-2"><span class="periodic">Ba</span>d</h1>
+      <h1 class="heading heading-3">Database</h1>
     </section>
+    <section class="filler filler-1"></section>
 
     <!-- QUOTE SECTION -->
     <h2 id="quotes-heading">Your Favourite Quotes From Breaking Bad</h2>
-    <section class="landing-wrap">
-      <section class="landing"></section>
+    <section class="quotes-container">
+      <section class="author-img"></section>
       <div class="quote-wrap">
         <h3 class="quote"></h3>
         <h4 class="author"></h4>
         <button class="btn quote-btn">New Quote</button>
       </div>
     </section>
-
+    <!-- END - Quote Section -->
+    <section class="filler filler-2"></section>
+    <!-- Character Cards Section -->
     <h2 id="characters">Find Out About Your Favourite Characters</h2>
     <section>
-      <form id="form">
+      <form id="form" class="form">
+        <label for="datalist">Search Character:</label>
         <input
+          name="datalist"
           list="datalist"
           id="card-input"
           type="text"
@@ -54,8 +64,27 @@
         <datalist id="datalist"> </datalist>
         <button class="btn card-btn">Get Character</button>
       </form>
-      <section class="card-container"></section>
+      <section class="card-container container"></section>
     </section>
+    <section class="filler filler-3"></section>
+    <footer>
+      <p>
+        Created With:
+        <a href="https://breakingbadapi.com/api/deaths">breakingbadapi.com</a>
+      </p>
+    </footer>
+
+    <!-- Deaths section -->
+    <!-- <h2 id="deaths">Who Killed Who ?</h2>
+    <section class="deaths">
+      <form class="death-form form">
+        <label for="death">Search Death:</label>
+        <input type="text" name="death" class="death-input" />
+        <button class="death-btn btn">Get Death</button>
+      </form>
+      <section class="death-container container"></section>
+    </section> -->
+
     <script src="app.js"></script>
   </body>
 </html>
