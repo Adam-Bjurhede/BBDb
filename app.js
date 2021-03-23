@@ -23,20 +23,18 @@ const deathInput = document.querySelector(".death-input");
 const deathBtn = document.querySelector(".death-btn");
 const deathContainer = document.querySelector(".death-container");
 const deathList = document.querySelector(".death-list");
+let deaths = [];
 
-// --- Functions---
+// ---EventListeners---
 
 //  Show/Hide Mobile Menu
 hamburger.addEventListener("click", () => {
   navigation.classList.toggle("show");
 });
 
-// ---EventListeners---
-
 //  Genereate quoute-btn Eventlistner
-
 quoteBtn.addEventListener("click", () => {
-  generateLanding();
+  generateQuote();
 });
 
 // Generete card-btn Evenlistner
@@ -55,10 +53,27 @@ cardContainer.addEventListener("click", (e) => {
   }
 });
 
+// Eventlistener to search Death
+deathInput.addEventListener("keyup", (e) => {
+  const search = e.target.value.toLowerCase();
+  const specificDeaths = deaths.filter((death) => {
+    return (
+      death.death.toLowerCase().includes(search) ||
+      death.responsible.toLowerCase().includes(search)
+    );
+  });
+  renderDeaths(specificDeaths);
+});
+
+// Get all Deaths on button click
+deathBtn.addEventListener("click", () => {
+  renderDeaths(deaths);
+});
+
 // --- Async/Await Functions ---
 
 //  Gets Random quote and fetches image for corresponding author of quote
-const generateLanding = async () => {
+const generateQuote = async () => {
   try {
     //   Genereate quote
     const res = await fetch(`https://www.breakingbadapi.com/api/quote/random`);
@@ -164,6 +179,18 @@ const datalistChars = async () => {
   }
 };
 
+// Asyncronous function to get deaths object
+const getDeaths = async () => {
+  try {
+    const response = await fetch(`https://breakingbadapi.com/api/deaths`);
+    deaths = await response.json();
+
+    // renderDeaths(deaths);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 // ---RENDER FUNCTIONS ---
 
 // Renders Quote and Author to page
@@ -200,49 +227,7 @@ const renderCard = (img, name, nick, age, occupation, status) => {
   card.classList.add("card");
 };
 
-// --- Calling Functions ---
-
-// Quotes
-generateLanding();
-
-// Populate Searchfield wiht characters
-datalistChars();
-
-//Death API
-
-let deaths = [];
-
-deathInput.addEventListener("keyup", (e) => {
-  const search = e.target.value.toLowerCase();
-  const specificDeaths = deaths.filter((death) => {
-    return (
-      death.death.toLowerCase().includes(search) ||
-      death.responsible.toLowerCase().includes(search)
-    );
-  });
-  console.log(search);
-  console.log(specificDeaths);
-  renderDeaths(specificDeaths);
-});
-
-deathBtn.addEventListener("click", () => {
-  renderDeaths(deaths);
-});
-
-const getDeaths = async () => {
-  try {
-    const response = await fetch(`https://breakingbadapi.com/api/deaths`);
-    deaths = await response.json();
-
-    // renderDeaths(deaths);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-getDeaths();
-console.log(deaths);
-
+// Render Deathts to page
 const renderDeaths = (deaths) => {
   const content = deaths
     .map((death) => {
@@ -255,10 +240,14 @@ const renderDeaths = (deaths) => {
   deathList.innerHTML = content;
 };
 
-// const renderDeaths = (death) => {
-//   const content = death.forEach((deaths) => {
-//     let deathItem = document.createElement("li");
-//     deathItem.innerHTML = `${deaths.responsible}:${deaths.death}`;
-//     deathList.appendChild(deathItem);
-//   });
-// };
+// --- Calling Functions ---
+
+// Quotes
+generateQuote();
+
+// Populate Searchfield wiht characters
+datalistChars();
+
+//Death API
+
+getDeaths();
