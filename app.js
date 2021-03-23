@@ -199,10 +199,6 @@ const renderCard = (img, name, nick, age, occupation, status) => {
   card.classList.add("card");
 };
 
-// click.addEventListener("click", () => {
-//   ul.classList.toggle("show-info");
-// });
-
 // --- Calling Functions ---
 
 // Quotes
@@ -210,3 +206,5 @@ generateLanding();
 
 // Populate Searchfield wiht characters
 datalistChars();
+
+//Death API

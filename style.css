@@ -432,6 +432,13 @@ footer a:hover {
   }
 }
 @media screen and (min-width: 780px) {
+  .quote-wrap h3 {
+    font-size: 3rem;
+  }
+
+  .quote-wrap h4 {
+    font-size: 1.5rem;
+  }
   .card-container {
     justify-content: flex-start;
   }
