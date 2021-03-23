@@ -277,14 +277,18 @@ h4.author {
   align-items: center;
 }
 
-.form label {
+label {
   font-size: var(--fs-heading-2);
 }
-.form input {
+input {
   padding: 10px 0 10px 10px;
   border: none;
   margin-bottom: 40px;
   border-radius: 15px;
+}
+input:focus {
+  outline: none;
+  border: 2px solid var(--secondary-clr);
 }
 
 /* Filler section */
@@ -300,11 +304,15 @@ h4.author {
   background-image: url(img/background-3.jpg);
 }
 .filler-2 {
-  height: 55vh;
+  height: 65vh;
   background-image: url(img/background-4.png);
 }
 .filler-3 {
-  height: 55vh;
+  height: 65vh;
+  background-image: url(img/background-5.jpg);
+}
+.filler-4 {
+  height: 65vh;
   background-image: url(img/background-2.jpg);
 }
 
@@ -380,6 +388,42 @@ h4.author {
   font-size: 0.7rem;
   font-weight: var(--fw-bold);
   cursor: pointer;
+}
+
+.deaths {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 100px;
+}
+
+.death-item {
+  font-weight: 700;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 30px;
+  border: 2px solid white;
+}
+
+.death-item > * {
+  font-size: 1.5rem;
+  font-weight: var(--fw-medium);
+}
+.death-item .killer {
+  color: #15eb84;
+}
+.death-item .killed {
+  color: #ee2a55;
+}
+
+.death-item .cause {
+  color: #7b83f8;
+}
+
+.death-btn {
+  padding: 10px 40px;
+  margin-bottom: 40px;
 }
 
 footer {

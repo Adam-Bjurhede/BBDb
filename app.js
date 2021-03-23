@@ -22,6 +22,7 @@ const dataList = document.getElementById("datalist");
 const deathInput = document.querySelector(".death-input");
 const deathBtn = document.querySelector(".death-btn");
 const deathContainer = document.querySelector(".death-container");
+const deathList = document.querySelector(".death-list");
 
 // --- Functions---
 
@@ -208,3 +209,56 @@ generateLanding();
 datalistChars();
 
 //Death API
+
+let deaths = [];
+
+deathInput.addEventListener("keyup", (e) => {
+  const search = e.target.value.toLowerCase();
+  const specificDeaths = deaths.filter((death) => {
+    return (
+      death.death.toLowerCase().includes(search) ||
+      death.responsible.toLowerCase().includes(search)
+    );
+  });
+  console.log(search);
+  console.log(specificDeaths);
+  renderDeaths(specificDeaths);
+});
+
+deathBtn.addEventListener("click", () => {
+  renderDeaths(deaths);
+});
+
+const getDeaths = async () => {
+  try {
+    const response = await fetch(`https://breakingbadapi.com/api/deaths`);
+    deaths = await response.json();
+
+    // renderDeaths(deaths);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+getDeaths();
+console.log(deaths);
+
+const renderDeaths = (deaths) => {
+  const content = deaths
+    .map((death) => {
+      return `<li class="death-item">
+      <h4 class="killer">${death.responsible} </h4>  Killed <i class="fas fa-skull"></i><h4 class="killed">${death.death} <i class="fas fa-skull-crossbones"></i></h4>With<h4 class="cause"> ${death.cause}</h4>
+     </li>`;
+    })
+    .join("");
+  console.log(content);
+  deathList.innerHTML = content;
+};
+
+// const renderDeaths = (death) => {
+//   const content = death.forEach((deaths) => {
+//     let deathItem = document.createElement("li");
+//     deathItem.innerHTML = `${deaths.responsible}:${deaths.death}`;
+//     deathList.appendChild(deathItem);
+//   });
+// };
