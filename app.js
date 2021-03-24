@@ -22,7 +22,6 @@ const deathInput = document.querySelector(".death-input");
 const deathBtn = document.querySelector(".death-btn");
 const deathContainer = document.querySelector(".death-container");
 const deathList = document.querySelector(".death-list");
-let deaths = [];
 
 // ---EventListeners---
 
@@ -151,8 +150,7 @@ const createCard = async () => {
     const age = data[0].birthday;
     const occupation = data[0].occupation;
     const status = data[0].status;
-    // console.log(data);
-    // console.log(charName);
+
     //Render card with img
     renderCard(charImg, charName, nickName, age, occupation, status);
   } catch (err) {
@@ -161,6 +159,7 @@ const createCard = async () => {
 };
 
 // LOOP CHARACTERS TO DATALIST
+
 const datalistChars = async () => {
   try {
     const response = await fetch(
@@ -244,6 +243,7 @@ const renderCard = (img, name, nick, age, occupation, status) => {
 };
 
 // Render Deathts to page
+let deaths = [];
 const renderDeaths = (deaths) => {
   const content = deaths
     .map((death) => {
@@ -252,7 +252,6 @@ const renderDeaths = (deaths) => {
      </li>`;
     })
     .join("");
-  console.log(content);
   deathList.innerHTML = content;
 };
 
