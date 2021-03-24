@@ -7,11 +7,11 @@
   --bg-clr-1: #0b0a08;
 
   /* Fonts */
-  --fs-heading-1: 3rem;
+  --fs-heading-1: 2rem;
   --fs-heading-2: 1.5rem;
   --fs-text-1: 1rem;
   --fs-text-2: 1.5rem;
-  --fs-link: 1.8rem;
+  --fs-link: 1.4rem;
 
   /* Weight */
   --fw-medium: 500;
@@ -23,6 +23,12 @@
 
   /* Text-Shadow */
   --text-shadow: 2px 2px black;
+}
+@media screen and (min-width: 768px) {
+  :root {
+    --fs-heading-1: 3rem;
+    --fs-link: 1.8rem;
+  }
 }
 
 /* General Styling */
@@ -42,17 +48,11 @@ h2 {
   font-size: var(--fs-heading-1);
   font-weight: var(--fw-medium);
   line-height: var(--lh-h);
-  color: #fff;
+  color: var(--secondary-clr);
   text-align: center;
   margin-bottom: 50px;
   text-decoration: underline;
   padding-top: 100px;
-}
-
-.header nav a {
-  font-size: var(--fs-link);
-  font-weight: var(--fw-bold);
-  text-transform: uppercase;
 }
 
 body {
@@ -60,6 +60,12 @@ body {
   background-color: var(--bg-clr-1);
   color: #fff;
   overflow-x: hidden;
+}
+
+.header nav a {
+  font-size: var(--fs-link);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
 }
 
 /* BTN STYLING */
@@ -127,6 +133,9 @@ header.header {
   justify-content: center;
   align-items: center;
 }
+.header .navigation li {
+  padding: 10px 0;
+}
 
 .header .navigation.show {
   display: block;
@@ -142,7 +151,7 @@ i.fa-bars {
 
 /* LANDING -SECTION */
 section.landing {
-  height: 70vh;
+  height: 80vh;
   max-width: 500px;
   margin: 0 auto;
   margin-top: 200px;
@@ -283,13 +292,16 @@ h4.author {
 
 label {
   font-size: var(--fs-heading-2);
+  margin-bottom: 10px;
 }
+
 input {
   padding: 10px 0 10px 10px;
   border: none;
   margin-bottom: 40px;
   border-radius: 15px;
 }
+
 input:focus {
   outline: none;
   border: 2px solid var(--secondary-clr);
@@ -322,11 +334,12 @@ input:focus {
 
 /* CARD STYLING  AND POSITIONING  */
 
-.container {
+.card-container {
   display: flex;
   flex-wrap: wrap-reverse;
   justify-content: center;
   min-height: 500px;
+  padding-bottom: 250px;
 }
 
 .form .btn {
@@ -363,10 +376,25 @@ input:focus {
   text-shadow: 1px 1px 4px black;
   padding: 10px 0;
 }
+
+.card-arrow {
+  background-color: rgba(34, 139, 34, 0.548);
+  text-shadow: 1px 1px 4px black;
+  padding: 10px 0;
+  font-size: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.card-info.hidden {
+  display: none;
+}
+
 .card h3 {
+  font-size: var(--fs-heading-2);
   text-align: center;
   font-family: "Cutive Mono", monospace;
-  background-color: rgba(0, 0, 0, 0.664);
+  background-color: rgba(0, 0, 0, 0.822);
 }
 .card ul {
   padding: 20px;
@@ -400,6 +428,10 @@ input:focus {
   justify-content: center;
   align-items: center;
   padding-bottom: 100px;
+}
+
+.deaths h3 {
+  margin-bottom: 30px;
 }
 
 .death-item {
@@ -467,10 +499,6 @@ footer a:hover {
 
   i.fa-bars {
     display: none;
-  }
-
-  h2#quotes-heading {
-    margin-bottom: -100px;
   }
 
   .quotes-container {

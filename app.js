@@ -1,5 +1,4 @@
 // Navbar Elements
-
 const hamburger = document.querySelector(".fa-bars");
 const navigation = document.querySelector(".navigation");
 
@@ -10,11 +9,11 @@ const author = document.querySelector(".author");
 const quoteBtn = document.querySelector(".quote-btn");
 
 // Character Card Elements
-
 const cardContainer = document.querySelector(".card-container");
 const cardBtn = document.querySelector(".card-btn");
 const inputCard = document.querySelector("#card-input");
 const close = document.querySelector(".close");
+
 //Search Field
 const dataList = document.getElementById("datalist");
 
@@ -152,8 +151,8 @@ const createCard = async () => {
     const age = data[0].birthday;
     const occupation = data[0].occupation;
     const status = data[0].status;
-    console.log(data);
-    console.log(charName);
+    // console.log(data);
+    // console.log(charName);
     //Render card with img
     renderCard(charImg, charName, nickName, age, occupation, status);
   } catch (err) {
@@ -207,24 +206,41 @@ const renderImg = (url) => {
 // Render card to page
 const renderCard = (img, name, nick, age, occupation, status) => {
   const card = document.createElement("div");
+  const info = document.createElement("article");
+  const arrow = document.createElement("i");
+
+  cardContainer.appendChild(card);
+
+  arrow.classList.add("fa-chevron-up", "fas", "card-arrow");
 
   card.style.backgroundImage = `url(${img})`;
 
-  card.innerHTML = `
-  <div class="close">X</div>
-  <article class="card-info">
-  <h3>${name}</h3>
+  card.innerHTML = `<div class="close">X</div>
+  <h3>${name}</h3> `;
+
+  info.innerHTML = `
   <ul>
   <li><span>Nickname:</span> ${nick}</li>
   <li><span>Born:</span> ${age}</li>
   <li><span>Occupation:</span> ${occupation}</li>
   <li><span>Status:</span> ${status}</li>
-  </ul>
-  </article>`;
+  </ul>`;
 
-  cardContainer.appendChild(card);
+  card.appendChild(info);
+  card.appendChild(arrow);
 
+  //Styling to card
   card.classList.add("card");
+
+  // Add hidden class from start
+  info.classList.add("card-info", "hidden");
+
+  // Show hide info on click/swithcing up down arrow
+  arrow.addEventListener("click", () => {
+    info.classList.toggle("hidden");
+    arrow.classList.toggle("fa-chevron-up");
+    arrow.classList.toggle("fa-chevron-down");
+  });
 };
 
 // Render Deathts to page
